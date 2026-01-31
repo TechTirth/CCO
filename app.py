@@ -16,8 +16,12 @@ from LocalSearchAlgorithm.comb_optimizer import (
 # monkey.patch_all()  ##internal use- Prevent an Error "greenlet.error: cannot switch to a different thread"
 
 calc = SpotCalculator()
+from flask_cors import CORS
+
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})  # For development
+# For production, specify your frontend URL:
+# CORS(app, resources={r"/*": {"origins": ["https://your-frontend-url.com"]}})
 
 
 @app.route("/getAWSData", methods=["POST"])
